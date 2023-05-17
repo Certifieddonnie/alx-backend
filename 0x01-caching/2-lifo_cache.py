@@ -29,7 +29,6 @@ class LIFOCache(BaseCaching):
                 last_key = list(self.cache_data.keys())[-2]
                 del self.cache_data[last_key]
                 print(f"DISCARD: {last_key}")
-            
 
     def get(self, key):
         """ returns the value in self.cache_data

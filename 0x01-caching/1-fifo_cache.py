@@ -26,7 +26,6 @@ class FIFOCache(BaseCaching):
             first_key = next(iter(self.cache_data))
             del self.cache_data[first_key]
             print(f"DISCARD: {first_key}")
-        
 
     def get(self, key):
         """ returns the value in self.cache_data
