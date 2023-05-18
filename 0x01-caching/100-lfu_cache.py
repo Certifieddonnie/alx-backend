@@ -26,17 +26,15 @@ class LFUCache(BaseCaching):
                 self.cache_data[key] = item
                 if key not in self.mem:
                     self.mem[key] = 1
-                    #   print(f"1st {self.mem}")
+                    # print(f"1st {self.mem}")
                 else:
-                    del self.mem[key]
                     self.mem[key] += 1
-                    #    print(f"2nd {self.mem}")
+                    # print(f"2nd {self.mem}")
             else:
                 if key in self.cache_data:
                     self.cache_data[key] = item
-                    del self.mem[key]
                     self.mem[key] += 1
-                    #     print(f"3rd {self.mem}")
+                    # print(f"3rd {self.mem}")
                 else:
                     lfu_key = min(self.mem, key=self.mem.get)
                     del self.cache_data[lfu_key]
@@ -44,7 +42,7 @@ class LFUCache(BaseCaching):
                     del self.mem[lfu_key]
                     self.mem[key] = 1
                     print(f"DISCARD: {lfu_key}")
-                    #      print(f"4th {self.mem}")
+                    # print(f"4th {self.mem}")
 
     def get(self, key):
         """ returns the value in self.cache_data
@@ -53,7 +51,6 @@ class LFUCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
-        del self.mem[key]
         self.mem[key] += 1
         # print(f"5th {self.mem}")
 
