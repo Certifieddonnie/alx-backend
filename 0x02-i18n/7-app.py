@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, g
 from typing import Any, Dict
 from flask_babel import Babel
+import pytz
 
 
 class Config(object):
@@ -59,10 +60,30 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+@babel.timezoneselector
+def get_timezone():
+    """ gets the timezone """
+    url_tz = request.args.get('timezone')
+    if url_tz:
+        tz = url_tz
+    elif g.user:
+        tz = g.user.get('timezone', '')
+    elif request.headers.get('timezone', ''):
+        tz = request.headers.get('timezone', '')
+    else:
+        tz = None
+    if tz:
+        try:
+            return pytz.timezone(tz).zone
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+    return app.config['BABEL_DEFAULT_TIMEZONE']
+
+
 @app.route('/')
 def index() -> Any:
     """ renders templates """
-    return (render_template('6-index.html'))
+    return (render_template('7-index.html'))
 
 
 if __name__ == "__main__":
