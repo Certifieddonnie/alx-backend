@@ -6,6 +6,7 @@ from typing import Any
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index() -> Any:
     """ renders templates """
