@@ -38,6 +38,7 @@ def get_user() -> Dict:
 
 @app.before_request
 def before_request():
+    """ first function to run """
     current_user = get_user()
     g.user = current_user
 
